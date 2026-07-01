@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasty Bites Restaurant</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>🍴 Tasty Bites</h1>
+  <p>Order delicious food, delivered to your door</p>
+</header>
+
+<main class="layout">
+
+  <!-- MENU SECTION -->
+  <section class="menu-section">
+    <h2>Menu</h2>
+    <div class="menu-grid">
+      {% for item in menu %}
+      <div class="menu-card">
+        <div class="menu-card-info">
+          <h3>{{ item.name }}</h3>
+          <span class="category">{{ item.category }}</span>
+          <p class="price">₹{{ item.price }}</p>
+        </div>
+        <button class="add-btn"
+                data-id="{{ item.id }}"
+                data-name="{{ item.name }}"
+                data-price="{{ item.price }}">
+          Add to Cart
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- CART + CHECKOUT SECTION -->
+  <aside class="cart-section">
+    <h2>Your Cart</h2>
+    <ul id="cart-list" class="cart-list">
+      <li class="empty-msg" id="empty-msg">Cart is empty</li>
+    </ul>
+    <p class="total">Total: ₹<span id="cart-total">0</span></p>
+
+    <hr>
+
+    <h2>Your Details</h2>
+    <form id="order-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required placeholder="e.g. Avi Kumar">
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required placeholder="e.g. 9876543210">
+
+      <label for="address">Delivery Address</label>
+      <textarea id="address" required placeholder="House no, street, city, pincode"></textarea>
+
+      <button type="submit" id="place-order-btn">Place Order via WhatsApp</button>
+    </form>
+  </aside>
+
+</main>
+
+<script>
+  const WHATSAPP_NUMBER = "{{ whatsapp_number }}";
+</script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
